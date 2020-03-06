@@ -10,7 +10,7 @@ namespace ImagemAcao
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new ImagemAcao.View.Inicio());
         }
 
         protected override void OnStart()

@@ -7,9 +7,30 @@
              x:Class="ImagemAcao.View.Inicio">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+            <Label Text="Nome do primeiro Grupo"/>
+            <Entry Placeholder="opcional"/>
+
+            <Label Text="Nome do segundo Grupo"/>
+            <Entry Placeholder="opcional"/>
+
+            <Label Text="Nível de dificuldade"/>
+            <Picker>
+                <Picker.Items>
+                    <x:String>Aleatório</x:String>
+                    <x:String>Fácil</x:String>
+                    <x:String>Médio</x:String>
+                    <x:String>Difícil</x:String>
+                </Picker.Items>
+            </Picker>
+            
+            <Label Text="Tempo de cada palavra"/>
+            <Entry Text="segundos"/>
+
+            <Label Text="Número de rodadas"/>
+            <Entry Text="1,2,3, etc..."/>
+
+            <Button Text="Iniciar"/>
+
+        </StackLayout> 
     </ContentPage.Content>
 </ContentPage>
