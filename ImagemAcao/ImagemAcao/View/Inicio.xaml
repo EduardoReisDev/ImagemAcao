@@ -8,7 +8,8 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Nome do primeiro Grupo"/>
-            <Entry Placeholder="opcional"/>
+            <Entry Placeholder="opcional" Text="{Binding NomeGrupo1}"/>
+            <Label Text="{Binding NomeGrupo1}"/>
 
             <Label Text="Nome do segundo Grupo"/>
             <Entry Placeholder="opcional"/>

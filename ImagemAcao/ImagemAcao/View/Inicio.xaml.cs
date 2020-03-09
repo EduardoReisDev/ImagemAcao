@@ -15,6 +15,19 @@ namespace ImagemAcao.View
         public Inicio()
         {
             InitializeComponent();
+
+            BindingContext = new Grupo();
         }
+
+        public class Grupo{
+            public string NomeGrupo1 { get; set; }
+
+            public Grupo()
+            {
+                NomeGrupo1 = "Os Machos";
+            }
+
+        }
+
     }
 }
