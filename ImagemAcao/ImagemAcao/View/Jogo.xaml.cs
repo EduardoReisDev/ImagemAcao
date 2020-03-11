@@ -15,6 +15,8 @@ namespace ImagemAcao.View
         public Jogo()
         {
             InitializeComponent();
+
+            BindingContext = new ViewModel.JogoViewModel();
         }
     }
 }
