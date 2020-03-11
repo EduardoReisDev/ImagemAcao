@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.ComponentModel;
 
 namespace ImagemAcao.View
 {
@@ -16,18 +17,7 @@ namespace ImagemAcao.View
         {
             InitializeComponent();
 
-            BindingContext = new Grupo();
+            BindingContext = new ViewModel.InicioViewModel();
         }
-
-        public class Grupo{
-            public string NomeGrupo1 { get; set; }
-
-            public Grupo()
-            {
-                NomeGrupo1 = "Os Machos";
-            }
-
-        }
-
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ImagemAcao.Model
 {
-    class Jogo
+    public class Jogo
     {
         public Grupo Grupo1 { get; set; }
         public Grupo Grupo2 { get; set; }
