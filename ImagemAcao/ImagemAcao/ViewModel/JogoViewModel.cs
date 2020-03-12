@@ -4,11 +4,17 @@ using System.Text;
 using Xamarin.Forms;
 using ImagemAcao.ViewModel;
 using System.ComponentModel;
+using ImagemAcao.Model;
+using ImagemAcao.Armazenamento;
 
 namespace ImagemAcao.ViewModel
 {
     public class JogoViewModel : INotifyPropertyChanged
     {
+        public Grupo Grupo { get; set; }
+
+        public string NomeGrupo { get; set; }
+
         private byte _PalavraPontuacao;
         public byte PalavraPontuacao { get { return _PalavraPontuacao; } set { _PalavraPontuacao = value; OnPropertyChanged("PalavraPontuacao"); } }
 
@@ -32,15 +38,18 @@ namespace ImagemAcao.ViewModel
         public Command Errou { get; set; }
         public Command Iniciar { get; set; }
 
-        public JogoViewModel()
+        public JogoViewModel(Grupo grupo)
         {
+            Grupo = grupo;
+            NomeGrupo = grupo.Nome;
+
             IsVisibleContainerContagem = false;
             IsVisibleContainerIniciar = false;
             IsVisibleBtnMostrar = true;
             Palavra = "********";
 
             MostrarPalavra = new Command(MostrarPalavraAction);
-            Acertou = new Command(MostrarPalavraAction);
+            Acertou = new Command(AcertouAction);
             Errou = new Command(ErrouAction);
             Iniciar = new Command(IniciarAction);
         }
@@ -49,6 +58,46 @@ namespace ImagemAcao.ViewModel
         {
             PalavraPontuacao = 3;
             Palavra = "Sentar";
+
+            var NumNivel = Armazenamento.Armazenamento.Jogo.NivelNumerico;
+
+            if(NumNivel == 0)
+            {
+                //aleatorio
+                Random rd = new Random();
+                int niv = rd.Next(0, 2);
+                int ind = rd.Next(0, Armazenamento.Armazenamento.Palavras[niv].Length);
+                Palavra = Armazenamento.Armazenamento.Palavras[niv][ind];
+                PalavraPontuacao = (byte) ((niv == 0) ? 1 : (niv == 1) ? 3 : 5);
+            }
+
+            if (NumNivel == 1)
+            {
+                //facil
+                Random rd = new Random();
+                int ind = rd.Next(0, Armazenamento.Armazenamento.Palavras[NumNivel - 1].Length);
+                Palavra = Armazenamento.Armazenamento.Palavras[NumNivel - 1][ind];
+                PalavraPontuacao = 1;
+            }
+
+            if (NumNivel == 2)
+            {
+                //med
+                Random rd = new Random();
+                int ind = rd.Next(0, Armazenamento.Armazenamento.Palavras[NumNivel - 1].Length);
+                Palavra = Armazenamento.Armazenamento.Palavras[NumNivel - 1][ind];
+                PalavraPontuacao = 3;
+            }
+
+            if (NumNivel == 3)
+            {
+                //dif
+                Random rd = new Random();
+                int ind = rd.Next(0, Armazenamento.Armazenamento.Palavras[NumNivel - 1].Length);
+                Palavra = Armazenamento.Armazenamento.Palavras[NumNivel - 1][ind];
+                PalavraPontuacao = 5;
+            }
+
             IsVisibleBtnMostrar = false;
             IsVisibleContainerIniciar = true;
         }
@@ -62,13 +111,46 @@ namespace ImagemAcao.ViewModel
             Device.StartTimer(TimeSpan.FromSeconds(1), () => {
                 TextoContagem = i.ToString();
                 i--;
+                if(i < 0)
+                {
+                    TextoContagem = "Esgotou o tempo";
+                }
                 return true;
             });
         }
 
         private void ErrouAction()
         {
+            Grupo.Pontuacao += PalavraPontuacao;
+            GoProximoGrupo();
+        }
 
+        private void AcertouAction()
+        {
+            GoProximoGrupo();
+        }
+
+        private void GoProximoGrupo()
+        {
+            Grupo grupo;
+
+            if(Armazenamento.Armazenamento.Jogo.Grupo1 == Grupo)
+            {
+                grupo = Armazenamento.Armazenamento.Jogo.Grupo2;
+            }
+            else
+            {
+                grupo = Armazenamento.Armazenamento.Jogo.Grupo1;
+                Armazenamento.Armazenamento.RodadaAtual++;
+            }
+
+            if(Armazenamento.Armazenamento.RodadaAtual > Armazenamento.Armazenamento.Jogo.Rodadas){
+                App.Current.MainPage = new View.Resultado();
+            }
+            else
+            {
+                App.Current.MainPage = new View.Jogo(grupo);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

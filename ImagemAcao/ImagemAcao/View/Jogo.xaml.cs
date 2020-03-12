@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ImagemAcao.Model;
 
 namespace ImagemAcao.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Jogo : ContentPage
     {
-        public Jogo()
+        public Jogo(Grupo grupo)
         {
             InitializeComponent();
 
-            BindingContext = new ViewModel.JogoViewModel();
+            BindingContext = new ViewModel.JogoViewModel(grupo);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;//
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
@@ -24,7 +24,7 @@ namespace ImagemAcao.ViewModel
         {
             Armazenamento.Armazenamento.Jogo = this.Jogo;
             Armazenamento.Armazenamento.RodadaAtual = 1;
-            App.Current.MainPage = new View.Jogo();
+            App.Current.MainPage = new View.Jogo(Jogo.Grupo1);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
