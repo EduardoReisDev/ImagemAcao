@@ -56,9 +56,6 @@ namespace ImagemAcao.ViewModel
 
         private void MostrarPalavraAction()
         {
-            PalavraPontuacao = 3;
-            Palavra = "Sentar";
-
             var NumNivel = Armazenamento.Armazenamento.Jogo.NivelNumerico;
 
             if(NumNivel == 0)

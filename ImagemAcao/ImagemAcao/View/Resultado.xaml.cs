@@ -15,6 +15,8 @@ namespace ImagemAcao.View
         public Resultado()
         {
             InitializeComponent();
+
+            BindingContext = new ViewModel.ResultadoViewModel();
         }
     }
 }
